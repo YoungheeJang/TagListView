@@ -16,6 +16,22 @@ import UIKit
 @IBDesignable
 open class TagListView: UIView {
     
+    @IBInspectable open dynamic var selectedRemoveButtonIcon: UIImage? {
+        didSet {
+            tagViews.forEach {
+                $0.removeButton.selectedIcon = selectedRemoveButtonIcon
+            }
+        }
+    }
+    
+    @IBInspectable open dynamic var nomalRemoveButtonIcon: UIImage? {
+        didSet {
+            tagViews.forEach {
+                $0.removeButton.nomalIcon = nomalRemoveButtonIcon
+            }
+        }
+    }
+    
     @IBInspectable open dynamic var textColor: UIColor = .white {
         didSet {
             tagViews.forEach {
@@ -347,9 +363,11 @@ open class TagListView: UIView {
         tagView.removeButtonIconSize = removeButtonIconSize
         tagView.enableRemoveButton = enableRemoveButton
         tagView.removeIconLineColor = removeIconLineColor
+        tagView.selectecIcon = selectedRemoveButtonIcon
+        tagView.nomalIcon = nomalRemoveButtonIcon
         tagView.addTarget(self, action: #selector(tagPressed(_:)), for: .touchUpInside)
         tagView.removeButton.addTarget(self, action: #selector(removeButtonPressed(_:)), for: .touchUpInside)
-        
+        tagView.removeButton.nomalstyle()
         // On long press, deselect all tags except this one
         tagView.onLongPress = { [unowned self] this in
             self.tagViews.forEach {

@@ -11,6 +11,18 @@ import UIKit
 @IBDesignable
 open class TagView: UIButton {
 
+    @IBInspectable open var selectecIcon: UIImage? {
+        didSet {
+            removeButton.selectedIcon = selectecIcon
+        }
+    }
+    
+    @IBInspectable open var nomalIcon: UIImage? {
+        didSet {
+            removeButton.nomalIcon = nomalIcon
+        }
+    }
+   
     @IBInspectable open var cornerRadius: CGFloat = 0 {
         didSet {
             layer.cornerRadius = cornerRadius
@@ -99,11 +111,13 @@ open class TagView: UIButton {
             backgroundColor = selectedBackgroundColor ?? tagBackgroundColor
             layer.borderColor = selectedBorderColor?.cgColor ?? borderColor?.cgColor
             setTitleColor(selectedTextColor, for: UIControl.State())
+            removeButton.setImage(selectecIcon, for: .normal)
         }
         else {
             backgroundColor = tagBackgroundColor
             layer.borderColor = borderColor?.cgColor
             setTitleColor(textColor, for: UIControl.State())
+            removeButton.setImage(nomalIcon, for: .normal)
         }
     }
     
